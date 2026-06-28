@@ -16,9 +16,11 @@ class FollowupSeeder extends Seeder
     public function run(): void
     {
         $steps = [
-            'ثبت سفارش',
-            'درحال آماده سازی',
-            'ارسال شد'
+            'pending'    => ['ثبت سفارش'],
+            'processing' => ['ثبت سفارش', 'در حال آماده سازی'],
+            'shipped'    => ['ثبت سفارش', 'در حال آماده سازی', 'ارسال شد'],
+            'completed'  => ['ثبت سفارش', 'در حال آماده سازی', 'ارسال شد', 'تحویل مشتری'],
+            'cancelled'  => ['لغو شد'],
         ];
 
         $orders = Order::all();
@@ -26,31 +28,17 @@ class FollowupSeeder extends Seeder
         $followups = [];
 
         foreach ($orders as $order) {
+            
+            $orderSteps = $steps[$order->status] ?? ['ثبت سفارش'];
 
-            $randomCount = rand(1, count($steps));
-            $currentSteps = array_slice($steps, 0, $randomCount);
-            $isCancelled = rand(1, 5) === 1;
-
-            if ($isCancelled) {
+            foreach ($orderSteps as $stepTitle) {
                 $followups[] = [
-                'order_id'    => $order->id,
-                'title'       => 'لغو شد',
-                'description' => fake()->sentence(),
-                'created_at'  => now(),
-                'updated_at'  => now(),
-            ];
-
-            } else {
-
-                foreach ($currentSteps as $step) {
-                    $followups[] = [
-                        'order_id'    => $order->id,
-                        'title'       => $step,
-                        'description' => fake()->sentence(),
-                        'created_at'  => now(),
-                        'updated_at'  => now(),
-                    ];
-                }
+                    'order_id'    => $order->id,
+                    'title'       => $stepTitle,
+                    'description' => fake()->sentence(),
+                    'created_at'  => now(),
+                    'updated_at'  => now(),
+                ];
             }
         }
 

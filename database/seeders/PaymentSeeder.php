@@ -23,12 +23,19 @@ class PaymentSeeder extends Seeder
         $payments = [];
 
         foreach ($orders as $order) {
+            if ($order->status === 'cancelled') {
+                $paymentStatus = 'failed';
+            } elseif ($order->status === 'completed' || $order->status === 'shipped' || $order->status === 'processing') {
+                $paymentStatus = 'success';
+            } else {
+                $paymentStatus = 'pending';
+            }
             $payments[] = [
                 'order_id'       => $order->id,
                 'amount'         => $order->total_price,
-                'payment_method' => 'online',
+                'payment_method' => fake()->randomElement(['ZarinPal', 'PayPal', 'Wallet']),
                 'transaction_id' => fake()->uuid(),
-                'status'         => 'success',
+                'status'         => $paymentStatus,
                 'paid_at'        => now(),
                 'created_at'     => now(),
                 'updated_at'     => now(),

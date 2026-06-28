@@ -19,6 +19,8 @@ class OrderSeeder extends Seeder
 
         $orders = [];
 
+        $statuses = ['pending', 'processing', 'shipped', 'completed', 'cancelled'];
+
         foreach ($baskets as $basket) {
             $total = $basket->basketItems->sum(function ($row) {
                 return $row->price * $row->quantity;
@@ -29,12 +31,12 @@ class OrderSeeder extends Seeder
                 'basket_id'   => $basket->id,
                 'total_price' => $total,
                 'address'     => fake()->address(),
-                'status'      => 'pending',
+                'status'      => $statuses[array_rand($statuses)],
                 'created_at'  => now(),
                 'updated_at'  => now(),
             ];
         }
-        
+
         Order::insert($orders);
     }
 }
