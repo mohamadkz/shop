@@ -37,7 +37,6 @@ class PaymentSeeder extends Seeder
                 'payment_method' => fake()->randomElement(['ZarinPal', 'PayPal', 'Wallet']),
                 'transaction_id' => fake()->uuid(),
                 'status'         => $paymentStatus,
-                'paid_at'        => now(),
                 'created_at'     => now(),
                 'updated_at'     => now(),
             ];

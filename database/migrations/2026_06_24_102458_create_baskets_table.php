@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('baskets', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
+            $table->foreignId('discount_code_id')->nullable()->constrained('discount_codes')->onDelete('set null');
             $table->boolean('status')->default(true);
             $table->decimal('total_amount', 15, 2)->default(0);
             $table->decimal('discount_amount', 15, 2)->default(0);
