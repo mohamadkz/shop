@@ -19,17 +19,17 @@ class OrderSeeder extends Seeder
 
         $orders = [];
 
-        $statuses = ['pending', 'processing', 'shipped', 'completed', 'cancelled'];
+        $statuses = ['pending', 'processing', 'shipped', 'completed', 'cancelled', 'paid'];
 
         foreach ($baskets as $basket) {
-            $total = $basket->basketItems->sum(function ($row) {
-                return $row->price * $row->quantity;
-            });
+            // $total = $basket->basketItems->sum(function ($row) {
+            //     return $row->price * $row->quantity;
+            // });
 
             $orders[] = [
                 'user_id'     => $basket->user_id,
                 'basket_id'   => $basket->id,
-                'total_price' => $total,
+                'total_price' => $basket->total_amount,
                 'address'     => fake()->address(),
                 'status'      => $statuses[array_rand($statuses)],
                 'created_at'  => now(),

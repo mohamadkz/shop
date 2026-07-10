@@ -20,7 +20,9 @@ class FollowupSeeder extends Seeder
             'processing' => ['ثبت سفارش', 'در حال آماده سازی'],
             'shipped'    => ['ثبت سفارش', 'در حال آماده سازی', 'ارسال شد'],
             'completed'  => ['ثبت سفارش', 'در حال آماده سازی', 'ارسال شد', 'تحویل مشتری'],
+            'paid' => ['ثبت سفارش', 'در حال آماده سازی', 'ارسال شد', 'تحویل مشتری', 'پرداخت شد'],
             'cancelled'  => ['لغو شد'],
+
         ];
 
         $orders = Order::all();
@@ -28,8 +30,8 @@ class FollowupSeeder extends Seeder
         $followups = [];
 
         foreach ($orders as $order) {
-            
-            $orderSteps = $steps[$order->status] ?? ['ثبت سفارش'];
+
+            $orderSteps = $steps[$order->status->value] ?? ['ثبت سفارش'];
 
             foreach ($orderSteps as $stepTitle) {
                 $followups[] = [

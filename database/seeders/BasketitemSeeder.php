@@ -20,6 +20,7 @@ class BasketitemSeeder extends Seeder
         $items = Item::all();
 
         if ($baskets->isEmpty() || $items->isEmpty()) {
+            $this->command->error("خطا: ابتدا باید item و Basket را ایجاد کنید!");
             return;
         }
 
@@ -40,6 +41,8 @@ class BasketitemSeeder extends Seeder
                 ];
             }
             BasketItem::insert($dataToInsert);
+            $basket->refresh();
+            $basket->calculateTotals();
         }
     }
 }
