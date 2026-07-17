@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\V1\StoreItemRequest;
-use App\Http\Requests\V1\UpdateItemRequest;
-use App\Http\Resources\V1\ItemResource;
+use App\Http\Requests\Api\V1\StoreItemRequest;
+use App\Http\Requests\Api\V1\UpdateItemRequest;
+use App\Http\Resources\Api\V1\ItemResource;
 use App\Models\Item;
 use Illuminate\Http\Request;
 
