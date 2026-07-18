@@ -8,6 +8,7 @@ use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -23,6 +24,8 @@ class User extends Authenticatable
         'email',
         'phone',
         'password',
+        'phone_verified_at',
+        'last_otp_sent_at',
     ];
 
     protected $hidden = [
@@ -61,5 +64,10 @@ class User extends Authenticatable
     public function favorites()
     {
         return $this->hasMany(Favorite::class);
+    }
+
+    public function otps()
+    {
+        return $this->hasMany(Otp::class);
     }
 }

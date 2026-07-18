@@ -3,6 +3,9 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\Sms\SmsProviderInterface;
+use App\Sms\Providers\MockSmsProvider;
+
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -11,7 +14,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->bind(
+        SmsProviderInterface::class,
+        MockSmsProvider::class
+    );
     }
 
     /**
