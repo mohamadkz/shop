@@ -39,7 +39,7 @@ class AuthController extends Controller
             ],401);
         }
         $user = User::where('email', $request->email)->first();
-        // ایجاد توکن
+       
         $token = $user->createToken('auth_token')->plainTextToken;
 
         return response()->json([
@@ -51,7 +51,7 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
-        // حذف توکنی که برای این دستگاه صادر شده
+        
         $request->user()->currentAccessToken()->delete();
 
         return response()->json(['message' => 'Logged out successfully']);

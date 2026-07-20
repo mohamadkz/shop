@@ -12,7 +12,7 @@ class StoreItemRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,12 +23,14 @@ class StoreItemRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'category_id' => ['required', 'integer', 'min:1', 'exists:categories,id'],
             'name' => ['required', 'string', 'max:255'],
             'slug' => ['required', 'string', 'max:255', 'unique:items,slug'],
             'description' => ['nullable', 'string'],
             'price' => ['required', 'numeric', 'min:0'],
             'stock' => ['required', 'integer', 'min:0'],
             'status' => ['required', 'boolean'],
+            'image' => ['sometimes','image','mimes:jpeg,png,jpg,webp','max:2048'],
         ];
     }
 }

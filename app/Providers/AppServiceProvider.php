@@ -5,6 +5,8 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use App\Sms\SmsProviderInterface;
 use App\Sms\Providers\MockSmsProvider;
+use App\Models\Basket;
+use App\Observers\BasketObserver;
 
 
 class AppServiceProvider extends ServiceProvider
@@ -25,6 +27,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Basket::observe(BasketObserver::class);
     }
 }

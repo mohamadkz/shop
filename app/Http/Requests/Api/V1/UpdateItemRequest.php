@@ -13,7 +13,7 @@ class UpdateItemRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -26,18 +26,14 @@ class UpdateItemRequest extends FormRequest
         $itemId = $this->route('item')->id;
 
         return [
-            'name' => ['sometimes', 'required', 'string', 'max:255'],
-            'slug' => [
-                'sometimes',
-                'required',
-                'string',
-                'max:255',
-                Rule::unique('items', 'slug')->ignore($itemId),
-            ],
+            'category_id' => ['sometimes', 'integer', 'min:1', 'exists:categories,id'],
+            'name' => ['sometimes', 'string', 'max:255'],
+            'slug' => ['sometimes', 'string', 'max:255', Rule::unique('items', 'slug')->ignore($itemId)],
             'description' => ['nullable', 'string'],
-            'price' => ['sometimes', 'required', 'numeric', 'min:0'],
-            'stock' => ['sometimes', 'required', 'integer', 'min:0'],
-            'status' => ['sometimes', 'required', 'boolean'],
+            'price' => ['sometimes', 'numeric', 'min:0'],
+            'stock' => ['sometimes', 'integer', 'min:0'],
+            'status' => ['sometimes', 'boolean'],
+            'image' => ['sometimes','image','mimes:jpeg,png,jpg,webp','max:2048'],
         ];
     }
 }
