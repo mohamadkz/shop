@@ -22,20 +22,25 @@ class OtpService
         $this->smsService = $smsService;
     }
 
-    public function send(string $phone, ?string $ip = null, ?string $userAgent = null): array {
+    public function send(string $phone, ?string $ip = null, ?string $userAgent = null): array
+    {
 
         $user = User::where('phone', $phone)->first();
 
         if (!$user) {
             return [
-                'success' => false, 'message' => 'کاربری با این شماره موبایل یافت نشد.', 'data' => null
-                ];
+                'success' => false,
+                'message' => 'کاربری با این شماره موبایل یافت نشد.',
+                'data' => null
+            ];
         }
 
         if (!$this->canSend($user)) {
             return [
-                'success' => false, 'message' => 'لطفاً 60 ثانیه دیگر مجدداً تلاش کنید.', 'data' => null
-                ];
+                'success' => false,
+                'message' => 'لطفاً 60 ثانیه دیگر مجدداً تلاش کنید.',
+                'data' => null
+            ];
         }
 
         DB::transaction(function () use ($user, $ip, $userAgent) {
@@ -45,13 +50,12 @@ class OtpService
             $code = $this->generateCode();
 
             $this->store(user: $user, code: $code, ip: $ip, userAgent: $userAgent);
-            
+
             $user->update([
                 'last_otp_sent_at' => now()
             ]);
 
-            $this->smsService->send( phone: $user->phone, message: "کد تایید شما: {$code}");
-
+            $this->smsService->send(phone: $user->phone, message: "کد تایید شما: {$code}");
         });
 
         return [
@@ -86,7 +90,8 @@ class OtpService
             ]);
     }
 
-    private function store(User $user, string $code, ?string $ip, ?string $userAgent): Otp {
+    private function store(User $user, string $code, ?string $ip, ?string $userAgent): Otp
+    {
 
         return Otp::create([
             'user_id' => $user->id,
@@ -97,8 +102,9 @@ class OtpService
             'user_agent' => $userAgent
         ]);
     }
- 
-    public function verify(string $phone, string $code): array {
+
+    public function verify(string $phone, string $code): array
+    {
 
         $user = User::where('phone', $phone)->first();
 
@@ -150,6 +156,10 @@ class OtpService
             'used_at' => now()
         ]);
 
+        $user->update([
+            'phone_verified_at' => now()
+        ]);
+
         return [
             'success' => true,
             'message' => 'کد تایید معتبر است.',
@@ -162,13 +172,14 @@ class OtpService
         return Otp::where('expires_at', '<', now())
             ->delete();
     }
-   
+
     public function deleteUserOtps(User $user): void
     {
         $user->otps()->delete();
     }
-   
-    public function resend(string $phone, ?string $ip, ?string $userAgent): array {
+
+    public function resend(string $phone, ?string $ip, ?string $userAgent): array
+    {
 
         return $this->send(
             phone: $phone,
