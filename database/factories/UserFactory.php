@@ -31,7 +31,7 @@ class UserFactory extends Factory
             'phone' => $this->faker->numerify('09#########'),
             'role' => 'user',
             'email_verified_at' => now(),
-            'password' => Hash::make('123456789'),
+            'password' => static::$password ??= Hash::make('Password123!'),
             'remember_token' => Str::random(10)
         ];
     }
@@ -43,6 +43,13 @@ class UserFactory extends Factory
     {
         return $this->state(fn(array $attributes) => [
             'email_verified_at' => null,
+        ]);
+    }
+
+    public function admin(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'role' => 'admin',
         ]);
     }
 }

@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('order_id')->constrained('orders')->cascadeOnDelete();
-            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
+            $table->foreignId('order_id')->constrained('orders')->restrictOnDelete();
+            $table->foreignId('user_id')->constrained('users')->restrictOnDelete();
             //Add User, gateway, authority, ref_id, tracking_code, card_pan
             
             $table->string('authority')->nullable();
@@ -25,9 +25,10 @@ return new class extends Migration
             $table->decimal('amount', 12, 2);
             $table->string('payment_method');
             $table->string('transaction_id')->nullable();
-            $table->enum('status', ['success', 'failed', 'pending', 'cancelled'])->default('pending');
+            $table->string('status', 20)->default('pending');
             $table->timestamp('paid_at')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

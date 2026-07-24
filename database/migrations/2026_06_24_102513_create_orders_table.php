@@ -17,8 +17,9 @@ return new class extends Migration
             $table->foreignId('basket_id')->constrained('baskets')->cascadeOnDelete();
             $table->decimal('total_price', 12, 2);
             $table->string('address');
-            $table->enum('status', ['pending', 'completed', 'shipped', 'processing', 'cancelled', 'paid'])->default('pending');
+            $table->string('status', 20)->default('pending');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

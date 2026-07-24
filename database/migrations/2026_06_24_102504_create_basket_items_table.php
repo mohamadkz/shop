@@ -14,10 +14,11 @@ return new class extends Migration
         Schema::create('basket_items', function (Blueprint $table) {
             $table->id();
             $table->foreignId('basket_id')->constrained('baskets')->cascadeOnDelete();
-            $table->foreignId('item_id')->constrained('items')->cascadeOnDelete();
+            $table->foreignId('item_id')->constrained('items')->restrictOnDelete();
             $table->integer('quantity');
             $table->decimal('price', 12, 2);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

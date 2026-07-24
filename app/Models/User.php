@@ -70,4 +70,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Otp::class);
     }
+
+    public function payments()
+    {
+        return $this->hasMany(Payment::class);
+    }
 }

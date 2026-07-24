@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('item_id')->constrained('items')->cascadeOnDelete();
             $table->tinyInteger('rating');
             $table->text('comment');
+            $table->unique(['user_id', 'item_id']);
             $table->timestamps();
         });
     }

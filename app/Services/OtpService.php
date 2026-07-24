@@ -7,6 +7,7 @@ use App\Models\Otp;
 use App\Services\SmsService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Carbon;
 
 class OtpService
@@ -14,8 +15,8 @@ class OtpService
     protected SmsService $smsService;
 
     private const OTP_EXPIRE_MINUTES = 2;
-
     private const OTP_RESEND_SECONDS = 60;
+    private const MAX_VERIFY_ATTEMPTS = 5;
 
     public function __construct(SmsService $smsService)
     {
@@ -105,10 +106,21 @@ class OtpService
 
     public function verify(string $phone, string $code): array
     {
+        $throttleKey = 'otp-verify:' . $phone;
+
+        if (RateLimiter::tooManyAttempts($throttleKey, self::MAX_VERIFY_ATTEMPTS)) {
+            $seconds = RateLimiter::availableIn($throttleKey);
+            return [
+                'success' => false,
+                'message' => "تعداد تلاش‌های شما بیش از حد مجاز است. لطفاً {$seconds} ثانیه دیگر تلاش کنید.",
+                'data'    => null,
+            ];
+        }
 
         $user = User::where('phone', $phone)->first();
 
         if (!$user) {
+            RateLimiter::hit($throttleKey, 300);
             return [
                 'success' => false,
                 'message' => 'کاربر یافت نشد.',
@@ -121,6 +133,7 @@ class OtpService
             ->first();
 
         if (!$otp) {
+            RateLimiter::hit($throttleKey, 300);
             return [
                 'success' => false,
                 'message' => 'کد تاییدی وجود ندارد.',
@@ -129,6 +142,7 @@ class OtpService
         }
 
         if ($otp->used_at) {
+            RateLimiter::hit($throttleKey, 300);
             return [
                 'success' => false,
                 'message' => 'این کد قبلاً استفاده شده است.',
@@ -137,6 +151,7 @@ class OtpService
         }
 
         if ($otp->expires_at->isPast()) {
+            RateLimiter::hit($throttleKey, 300);
             return [
                 'success' => false,
                 'message' => 'کد تایید منقضی شده است.',
@@ -145,12 +160,15 @@ class OtpService
         }
 
         if (!Hash::check($code, $otp->code)) {
+            RateLimiter::hit($throttleKey, 300);
             return [
                 'success' => false,
                 'message' => 'کد تایید اشتباه است.',
                 'data' => null
             ];
         }
+
+        RateLimiter::clear($throttleKey);
 
         $otp->update([
             'used_at' => now()

@@ -15,6 +15,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        if (! app()->environment(['local', 'testing'])) {
+            $this->command->warn('Refusing to run demo seeders outside local/testing.');
+            return;
+        }
+        
         $this->call([
             UserSeeder::class,
             CategorySeeder::class,

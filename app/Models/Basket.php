@@ -34,19 +34,25 @@ class Basket extends Model
     }
 
 
-    public function calculateTotals()
+    public function calculateTotals(): void
     {
-        $this->load(['basketItems', 'discountCode']);
-        $this->amount = $this->basketItems ? $this->basketItems->sum(function ($item) {
-            return $item->price * $item->quantity;
-        }) : 0;
+        $this->loadMissing(['basketItems', 'discountCode']);
+
+        $this->amount = $this->basketItems->sum(
+            fn($item) => $item->price * $item->quantity
+        );
 
         $discountAmount = 0;
         if ($this->discountCode) {
             $discountAmount = ($this->amount * $this->discountCode->percent) / 100;
+
+            if ($this->discountCode->max_discount) {
+                $discountAmount = min($discountAmount, $this->discountCode->max_discount);
+            }
         }
+
         $this->discount_amount = $discountAmount;
         $this->total_amount = max(0, $this->amount - $discountAmount);
-        $this->save();
+        $this->saveQuietly();
     }
 }

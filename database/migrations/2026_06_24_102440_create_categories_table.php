@@ -18,6 +18,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->foreignId('parent_id')->nullable()->constrained('categories')->cascadeOnUpdate()->nullOnDelete();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
