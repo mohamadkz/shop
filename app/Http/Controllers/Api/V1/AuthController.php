@@ -32,13 +32,6 @@ class AuthController extends Controller
 
     public function login(LoginRequest $request)
     {
-        // if (!Auth::attempt($request->only('email','password')))
-        // {
-        //     return response()->json([
-        //         'message'=>'Credentials are incorrect'
-        //     ],401);
-        // }
-
         $request->authenticate();
         $user = User::where('email', $request->email)->first();
        

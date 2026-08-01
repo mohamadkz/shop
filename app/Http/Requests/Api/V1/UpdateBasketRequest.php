@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Http\Requests\Api\V2;
+namespace App\Http\Requests\Api\V1;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class SendOtpRequest extends FormRequest
+class UpdateBasketRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return true;
+        return $this->user() !== null;
     }
 
     /**
@@ -23,15 +23,7 @@ class SendOtpRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'phone' => ['required', 'string', 'regex:/^09[0-9]{9}$/'],
+            'quantity' => ['required', 'integer', 'min:0']
         ];
     }
-
-    public function messages(): array
-    {
-        return [
-            'phone.required' => 'شماره موبایل الزامی است',
-            'phone.regex' => 'فرمت شماره موبایل صحیح نیست',
-        ];
-    }
-}   
+}

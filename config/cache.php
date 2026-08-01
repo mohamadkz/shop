@@ -78,10 +78,16 @@ return [
             ],
         ],
 
+        // 'redis' => [
+        //     'driver' => 'redis',
+        //     'connection' => env('REDIS_CACHE_CONNECTION', 'cache'),
+        //     'lock_connection' => env('REDIS_CACHE_LOCK_CONNECTION', 'default'),
+        // ],
+
         'redis' => [
-            'driver' => 'redis',
-            'connection' => env('REDIS_CACHE_CONNECTION', 'cache'),
-            'lock_connection' => env('REDIS_CACHE_LOCK_CONNECTION', 'default'),
+        'driver' => 'redis',
+        'connection' => 'cache', // isolates cache keys from queue/session redis DBs
+        'lock_connection' => 'default',
         ],
 
         'dynamodb' => [

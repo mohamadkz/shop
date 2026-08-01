@@ -20,6 +20,7 @@ return new class extends Migration
             $table->decimal('discount_amount', 15, 2)->default(0);
             $table->decimal('amount', 15, 2)->default(0);
             $table->timestamps();
+            $table->index(['user_id', 'created_at']);
         });
     }
 
@@ -28,6 +29,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('baskets');
+        Schema::table('baskets', function (Blueprint $table) {
+            $table->dropIndex(['user_id', 'created_at']);
+        });
     }
 };
