@@ -63,7 +63,7 @@ class ItemController extends Controller
         $this->authorize('delete', $item);
         $item->delete();
         return response()->json([
-            'message' => 'Item deleted successfully'
+            'message' => 'محصول با موفقیت حذف شد'
         ]);
     }
 }

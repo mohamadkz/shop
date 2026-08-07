@@ -39,11 +39,11 @@ class BasketService
     public function addItem(User $user, Item $item, int $quantity = 1): array
     {
         if ($quantity < 1) {
-            throw ValidationException::withMessages(['quantity' => 'Quantity must be at least 1.']);
+            throw ValidationException::withMessages(['quantity' => 'مقدار باید حداقل ۱ باشد']);
         }
 
         if ($item->stock < $quantity) {
-            throw ValidationException::withMessages(['quantity' => 'Insufficient stock available.']);
+            throw ValidationException::withMessages(['quantity' => 'موجودی کالا کافی نیست']);
         }
 
         return Cache::lock($this->lockKey($user->id), self::LOCK_SECONDS)->block(3, function () use ($user, $item, $quantity) {
@@ -53,7 +53,7 @@ class BasketService
                 $newQty = $items[$item->id]['quantity'] + $quantity;
 
                 if ($item->stock < $newQty) {
-                    throw ValidationException::withMessages(['quantity' => 'Insufficient stock available.']);
+                    throw ValidationException::withMessages(['quantity' => 'موجودی کالا کافی نیست']);
                 }
 
                 $items[$item->id]['quantity'] = $newQty;
@@ -77,7 +77,7 @@ class BasketService
             $items = $this->getItems($user);
 
             if (!isset($items[$itemId])) {
-                throw ValidationException::withMessages(['item' => 'Item not found in basket.']);
+                throw ValidationException::withMessages(['item' => 'کالا در سبد خرید یافت نشد']);
             }
 
             if ($quantity < 1) {
@@ -85,7 +85,7 @@ class BasketService
             } else {
                 $item = Item::find($itemId);
                 if ($item && $item->stock < $quantity) {
-                    throw ValidationException::withMessages(['quantity' => 'Insufficient stock available.']);
+                    throw ValidationException::withMessages(['quantity' => 'موجودی کالا کافی نیست']);
                 }
                 $items[$itemId]['quantity'] = $quantity;
             }
@@ -116,7 +116,7 @@ class BasketService
             ->first();
 
         if (!$discount) {
-            throw ValidationException::withMessages(['code' => 'Invalid or expired discount code.']);
+            throw ValidationException::withMessages(['code' => 'کد تخفیف نامعتبر است']);
         }
 
         Cache::put($this->discountKey($user->id), $discount->id, now()->addDays(self::TTL_DAYS));
@@ -188,7 +188,7 @@ class BasketService
         $cart = $this->getBasket($user);
 
         if (empty($cart['items'])) {
-            throw ValidationException::withMessages(['basket' => 'Your basket is empty.']);
+            throw ValidationException::withMessages(['basket' => 'سبد خرید شما خالی است']);
         }
 
         return DB::transaction(function () use ($user, $cart, $address) {
@@ -205,7 +205,7 @@ class BasketService
 
                 if (!$dbItem || $dbItem->stock < $line['quantity']) {
                     throw ValidationException::withMessages([
-                        'stock' => "Insufficient stock for \"{$dbItem?->name}\".",
+                        'stock' => "موجودی محصول ناکافی برای \"{$dbItem?->name}\".",
                     ]);
                 }
             }

@@ -24,7 +24,7 @@ class AuthController extends Controller
         ]);
         $token = $user->createToken('auth_token')->plainTextToken;
         return response()->json([
-            'message' => 'User registered successfully',
+            'message' => 'کاربر با موفقیت ثبت شد',
             'token'=>$token,
             'user'=>new UserResource($user)
             ], 201);
@@ -38,7 +38,7 @@ class AuthController extends Controller
         $token = $user->createToken('auth_token')->plainTextToken;
 
         return response()->json([
-            'message'=>'Login Successfully',
+            'message'=>'ورود با موفقیت',
             'token'=>$token,
             'user'=>new UserResource($user),
         ]);
@@ -49,7 +49,7 @@ class AuthController extends Controller
         
         $request->user()->currentAccessToken()->delete();
 
-        return response()->json(['message' => 'Logged out successfully']);
+        return response()->json(['message' => 'با موفقیت از سیستم خارج شدید']);
     }
 
     public function user(Request $request)
