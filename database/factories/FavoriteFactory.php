@@ -2,9 +2,9 @@
 
 namespace Database\Factories;
 
-use App\Models\Favorite;
-use App\Models\Item;
-use App\Models\User;
+use App\Domain\Catalog\Models\Favorite;
+use App\Domain\Catalog\Models\Item;
+use App\Domain\Customer\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,6 +17,9 @@ class FavoriteFactory extends Factory
      *
      * @return array<string, mixed>
      */
+
+    protected $model = Favorite::class;
+
     public function definition(): array
     {
         return [];

@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Models\BasketItem;
-use App\Models\Basket;
-use App\Models\Item;
+use App\Domain\Cart\Models\BasketItem;
+use App\Domain\Cart\Models\Basket;
+use App\Domain\Catalog\Models\Item;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;

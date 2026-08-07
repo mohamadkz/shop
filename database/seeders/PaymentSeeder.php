@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\Payment;
-use App\Models\Order;
+use App\Domain\Payment\Models\Payment;
+use App\Domain\Order\Models\Order;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 

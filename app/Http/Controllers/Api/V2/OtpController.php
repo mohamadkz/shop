@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Api\V2;
 
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Api\V2\SendOtpRequest;
-use App\Http\Requests\Api\V2\VerifyOtpRequest;
+use App\Domain\Customer\Requests\SendOtpRequest;
+use App\Domain\Customer\Requests\VerifyOtpRequest;
 use App\Services\OtpService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;

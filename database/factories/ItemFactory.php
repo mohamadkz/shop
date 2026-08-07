@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
-use App\Models\Item;
-use App\Models\Category;
+use App\Domain\Catalog\Models\Item;
+use App\Domain\Catalog\Models\Category;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -17,6 +17,9 @@ class ItemFactory extends Factory
      *
      * @return array<string, mixed>
      */
+
+    protected $model = Item::class;
+
     public function definition(): array
     {
         $name = $this->faker->words(3, true);

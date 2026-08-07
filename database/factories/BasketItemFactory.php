@@ -2,9 +2,9 @@
 
 namespace Database\Factories;
 
-use App\Models\BasketItem;
-use App\Models\Item;
-use App\Models\Basket;
+use App\Domain\Cart\Models\BasketItem;
+use App\Domain\Catalog\Models\Item;
+use App\Domain\Cart\Models\Basket;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,6 +17,8 @@ class BasketItemFactory extends Factory
      *
      * @return array<string, mixed>
      */
+    protected $model = BasketItem::class;
+
     public function definition(): array
     {
         return [

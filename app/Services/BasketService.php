@@ -2,15 +2,15 @@
 
 namespace App\Services;
 
-use App\Models\Basket;
-use App\Models\BasketItem;
-use App\Models\DiscountCode;
-use App\Models\Item;
-use App\Models\Order;
-use App\Models\Payment;
-use App\Models\User;
-use App\Enums\OrderStatus;
-use App\Enums\PaymentStatus;
+use App\Domain\Cart\Models\Basket;
+use App\Domain\Cart\Models\BasketItem;
+use App\Domain\Cart\Models\DiscountCode;
+use App\Domain\Catalog\Models\Item;
+use App\Domain\Order\Models\Order;
+use App\Domain\Payment\Models\Payment;
+use App\Domain\Customer\Models\User;
+use App\Domain\Order\Enums\OrderStatus;
+use App\Domain\Payment\Enums\PaymentStatus;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;

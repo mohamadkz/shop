@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
-use App\Models\Payment;
-use App\Models\Order;
+use App\Domain\Payment\Models\Payment;
+use App\Domain\Order\Models\Order;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,6 +16,9 @@ class PaymentFactory extends Factory
      *
      * @return array<string, mixed>
      */
+
+    protected $model = Payment::class;
+
     public function definition(): array
     {
         return [

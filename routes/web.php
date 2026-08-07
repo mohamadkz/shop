@@ -2,10 +2,10 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Models\Order;
-use App\Models\Payment;
-use App\Enums\OrderStatus;
-use App\Enums\PaymentStatus;
+use App\Domain\Order\Models\Order;
+use App\Domain\Payment\Models\Payment;
+use App\Domain\Order\Enums\OrderStatus;
+use App\Domain\Payment\Enums\PaymentStatus;
 use Illuminate\Support\Facades\DB;
 
 Route::get('/', function () {

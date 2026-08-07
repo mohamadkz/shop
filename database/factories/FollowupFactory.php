@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
-use App\Models\Followup;
-use App\Models\Order;
+use App\Domain\Order\Models\Followup;
+use App\Domain\Order\Models\Order;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,6 +16,9 @@ class FollowupFactory extends Factory
      *
      * @return array<string, mixed>
      */
+
+    protected $model = Followup::class;
+
     public function definition(): array
     {
         return [

@@ -2,7 +2,7 @@
 
 namespace App\Observers;
 
-use App\Models\BasketItem;
+use App\Domain\Cart\Models\BasketItem;
 
 class BasketItemObserver
 {

@@ -2,8 +2,8 @@
 
 namespace App\Policies;
 
-use App\Models\Item;
-use App\Models\User;
+use App\Domain\Catalog\Models\Item;
+use App\Domain\Customer\Models\User;
 use Illuminate\Auth\Access\Response;
 
 class ItemPolicy

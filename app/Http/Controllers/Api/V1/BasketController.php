@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Api\V1\ApplyDiscountRequest;
-use App\Http\Requests\Api\V1\CheckoutRequest;
-use App\Http\Requests\Api\V1\StoreBasketRequest;
-use App\Http\Requests\Api\V1\UpdateBasketRequest;
-use App\Models\Item;
+use App\Domain\Cart\Requests\ApplyDiscountRequest;
+use App\Domain\Cart\Requests\CheckoutRequest;
+use App\Domain\Cart\Requests\StoreBasketRequest;
+use App\Domain\Cart\Requests\UpdateBasketRequest;
+use App\Domain\Catalog\Models\Item;
 use App\Services\BasketService;
 use Illuminate\Http\Request;
 

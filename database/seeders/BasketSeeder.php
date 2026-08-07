@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\Basket;
-use App\Models\DiscountCode;
-use App\Models\BasketItem;
-use App\Models\Item;
-use App\Models\User;
+use App\Domain\Cart\Models\Basket;
+use App\Domain\Cart\Models\DiscountCode;
+use App\Domain\Cart\Models\BasketItem;
+use App\Domain\Catalog\Models\Item;
+use App\Domain\Customer\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 

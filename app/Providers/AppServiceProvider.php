@@ -6,9 +6,9 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 use App\Sms\SmsProviderInterface;
 use App\Sms\Providers\MockSmsProvider;
-use App\Models\BasketItem;
-use App\Models\Item;
-use App\Models\User;
+use App\Domain\Cart\Models\BasketItem;
+use App\Domain\Catalog\Models\Item;
+use App\Domain\Customer\Models\User;
 use App\Observers\BasketItemObserver;
 use App\Policies\ItemPolicy;
 

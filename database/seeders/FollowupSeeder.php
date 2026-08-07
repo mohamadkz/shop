@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\Followup;
-use App\Models\Order;
+use App\Domain\Order\Models\Followup;
+use App\Domain\Order\Models\Order;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;

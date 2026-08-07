@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\Order;
-use App\Models\Basket;
+use App\Domain\Order\Models\Order;
+use App\Domain\Cart\Models\Basket;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
