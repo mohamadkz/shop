@@ -85,9 +85,16 @@ return [
         // ],
 
         'redis' => [
-        'driver' => 'redis',
-        'connection' => 'cache', // isolates cache keys from queue/session redis DBs
-        'lock_connection' => 'default',
+            'driver' => 'redis',
+            'cache' => [
+                'url' => env('REDIS_URL'),
+                'host' => env('REDIS_HOST', '127.0.0.1'),
+                'username' => env('REDIS_USERNAME'),
+                'password' => env('REDIS_PASSWORD'),
+                'port' => env('REDIS_PORT', '6379'),
+                'database' => env('REDIS_CACHE_DB', '1'),
+            ],
+            'client' => env('REDIS_CLIENT', 'phpredis'),
         ],
 
         'dynamodb' => [
@@ -124,7 +131,7 @@ return [
     |
     */
 
-    'prefix' => env('CACHE_PREFIX', Str::slug((string) env('APP_NAME', 'laravel')).'-cache-'),
+    'prefix' => env('CACHE_PREFIX', Str::slug((string) env('APP_NAME', 'laravel')) . '-cache-'),
 
     /*
     |--------------------------------------------------------------------------

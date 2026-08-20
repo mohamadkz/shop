@@ -23,18 +23,8 @@ class VerifyOtpRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'phone' => [
-                'required',
-                'string',
-                'regex:/^09[0-9]{9}$/'
-            ],
-
-
-            'code' => [
-                'required',
-                'string',
-                'digits:6'
-            ]
+            'phone' => ['required', 'string', 'regex:/^09[0-9]{9}$/'],
+            'code' => ['required', 'string', 'digits:6']
         ];
     }
 

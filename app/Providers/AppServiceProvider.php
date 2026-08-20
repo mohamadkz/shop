@@ -2,10 +2,18 @@
 
 namespace App\Providers;
 
+use App\Domain\Payment\Services\Contracts\PaymentGatewayContract;
+use App\Domain\Payment\Services\Gateways\ZarinpalGateway;
+use App\Domain\Payment\Services\Gateways\FakePaymentGateway;
+use App\Domain\Customer\Services\Contracts\SmsProviderContract;
+use App\Domain\Customer\Services\Providers\KavenegarProvider;
+use App\Domain\Customer\Services\Providers\MockSmsProvider;
+
+
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 use App\Sms\SmsProviderInterface;
-use App\Sms\Providers\MockSmsProvider;
+// use App\Sms\Providers\MockSmsProvider;
 use App\Domain\Cart\Models\BasketItem;
 use App\Domain\Catalog\Models\Item;
 use App\Domain\Customer\Models\User;
@@ -14,7 +22,7 @@ use App\Policies\ItemPolicy;
 
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Support\Facades\RateLimiter;
-use Illuminate\Http\Request; 
+use Illuminate\Http\Request;
 
 
 
@@ -26,9 +34,24 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->bind(
-            SmsProviderInterface::class,
+            SmsProviderContract::class,
             MockSmsProvider::class
         );
+
+        $this->app->singleton(
+            PaymentGatewayContract::class,
+            FakePaymentGateway::class
+        );
+
+        // $this->app->singleton(
+        //     PaymentGatewayContract::class,
+        //     ZarinpalGateway::class
+        // );
+
+        // $this->app->singleton(
+        //     SmsProviderContract::class,
+        //     KavenegarProvider::class
+        // );
     }
 
     /**

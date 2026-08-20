@@ -2,77 +2,50 @@
 
 namespace App\Http\Controllers\Api\V2;
 
+use App\Domain\Customer\Actions\SendOtp;
+use App\Domain\Customer\Actions\VerifyOtp;
+use App\Domain\Customer\Resources\UserResource;
+use App\Shared\Http\ApiResponse;
+
 
 use App\Http\Controllers\Controller;
 use App\Domain\Customer\Requests\SendOtpRequest;
 use App\Domain\Customer\Requests\VerifyOtpRequest;
-use App\Services\OtpService;
+// use App\Services\OtpService;
+use App\App\Domain\Customer\Services\OtpService;
+use App\Domain\Customer\Services\OtpService as ServicesOtpService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 
 class OtpController extends Controller
 {
-    protected OtpService $otpService;
+    protected ServicesOtpService $otpService;
 
-    public function __construct(OtpService $otpService)
+    public function __construct(ServicesOtpService $otpService)
     {
         $this->otpService = $otpService;
     }
 
-    public function sendOtp(SendOtpRequest $request)
+    public function sendOtp(SendOtpRequest $request, SendOtp $action)
     {
-        $result = $this->otpService->send(
-            phone: $request->phone,
-            ip: $request->ip(),
-            userAgent: $request->userAgent()
-        );
+        $data = $request->validated();
 
-        if (!$result['success']) {
-            return response()->json([
-                'success' => false,
-                'message' => $result['message'],
-                'data' => null
-            ], 422);
-        }
+        $action($data['phone'], $request->ip(), $request->userAgent());
 
-        return response()->json([
-            'success' => true,
-            'message' => $result['message'],
-            'data' => null
-        ], 200);
+        return ApiResponse::success(null, 'کد تایید ارسال شد');
     }
 
-    public function verifyOtp(VerifyOtpRequest $request) 
+    public function verifyOtp(VerifyOtpRequest $request, VerifyOtp $action) 
     {
 
-        $result = $this->otpService->verify(
-            phone: $request->phone,
-            code: $request->code
-        );
+        $data = $request->validated();
 
-        if (!$result['success']) {
-            return response()->json([
-                'success' => false,
-                'message' => $result['message']
-            ], 422);
-        }
+        $result = $action($data['phone'], $data['code']);
 
-        $user = $result['data'];
-
-        Auth::login($user);
-
-        $token = $user->createToken(
-            'auth-token'
-        )->plainTextToken;
-
-        return response()->json([
-            'success' => true,
-            'message' => 'ورود موفق بود.',
-            'data' => [
-                'user' => $user,
-                'token' => $token
-            ]
-        ]);
+        return ApiResponse::success([
+            'user'  => new UserResource($result['user']),
+            'token' => $result['token'],
+        ], 'شماره موبایل با موفقیت تایید شد');
     }
 }

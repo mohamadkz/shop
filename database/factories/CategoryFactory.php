@@ -6,27 +6,28 @@ use App\Domain\Catalog\Models\Category;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
-
 /**
  * @extends Factory<Category>
  */
 class CategoryFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
     protected $model = Category::class;
 
     public function definition(): array
     {
-        $name = $this->faker->words(2, true);
+        $name = fake()->unique()->words(2, true);
+
         return [
-            'name' => $name,
-            'slug' => Str::slug($name . '-' . $this->faker->unique()->numberBetween(1, 99999)),
-            'description' => $this->faker->sentence(),
-            'parent_id' => null
+            'name'        => ucfirst($name),
+            'slug'        => Str::slug($name) . '-' . fake()->unique()->numberBetween(1000, 9999),
+            'description' => fake()->boolean(70) ? fake()->sentence() : null,
+            'parent_id'   => null, // top-level by default; CategorySeeder assigns children explicitly
         ];
+    }
+
+    /** State: a child category under a given parent. */
+    public function childOf(Category $parent): static
+    {
+        return $this->state(fn () => ['parent_id' => $parent->id]);
     }
 }

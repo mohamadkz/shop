@@ -13,7 +13,7 @@ class UpdateItemRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return $this->user()?->tokenCan('items:write') ?? false;
     }
 
     /**
@@ -23,17 +23,17 @@ class UpdateItemRequest extends FormRequest
      */
     public function rules(): array
     {
-        $itemId = $this->route('item')->id;
+        $itemId = $this->route('item')?->id;
 
         return [
-            'category_id' => ['sometimes', 'integer', 'min:1', 'exists:categories,id'],
-            'name' => ['sometimes', 'string', 'max:255'],
-            'slug' => ['sometimes', 'string', 'max:255', Rule::unique('items', 'slug')->ignore($itemId)],
-            'description' => ['nullable', 'string'],
-            'price' => ['sometimes', 'numeric', 'min:0'],
-            'stock' => ['sometimes', 'integer', 'min:0'],
-            'status' => ['sometimes', 'boolean'],
-            'image' => ['sometimes','image','mimes:jpeg,png,jpg,webp','max:2048'],
+            'category_id' => ['sometimes', 'required', 'integer', 'min:1', 'exists:categories,id'],
+            'name' => ['sometimes', 'required', 'string', 'max:255'],
+            'slug' => ['sometimes', 'required', 'string', 'max:255', Rule::unique('items', 'slug')->ignore($itemId)],
+            'description' => ['nullable', 'string', 'max:5000'],
+            'price' => ['sometimes', 'required', 'numeric', 'min:0', 'max:999999999.99'],
+            'stock' => ['sometimes', 'required', 'integer', 'min:0'],
+            'status' => ['sometimes', 'required', 'string', 'in:draft,active,archived'],
+            'image' => ['nullable','image','mimes:jpeg,png,jpg,webp','max:2048'],
         ];
     }
 }

@@ -13,11 +13,14 @@ return new class extends Migration
     {
         Schema::create('discount_codes', function (Blueprint $table) {
             $table->id();
-            $table->string('code')->unique(); // مثلا: OFF20
-            $table->decimal('percent', 5, 2); // درصد تخفیف
-            $table->decimal('max_discount', 10, 2)->nullable(); // سقف مبلغ تخفیف
+            $table->string('code')->unique(); 
+            $table->string('type', 20)->default('percentage');
+            $table->decimal('percent', 5, 2)->nullable();
+            $table->decimal('fixed_amount', 12, 2)->nullable();
+            $table->decimal('max_discount', 12, 2)->nullable(); // سقف مبلغ تخفیف
             $table->timestamp('expired_at')->nullable(); // تاریخ انقضا
-            $table->integer('usage_limit')->default(1); // تعداد دفعات مجاز استفاده
+            $table->unsignedInteger('usage_limit')->nullable();
+            $table->unsignedInteger('used_count')->default(0);
             $table->timestamps();
         });
     }

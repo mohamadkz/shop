@@ -1,5 +1,7 @@
 <?php
 
+use Laravel\Sanctum\Http\Middleware\CheckAbilities;
+
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -17,6 +19,10 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->api(prepend: [
             ThrottleRequests::class . ':api',
         ]);
+
+        $middleware->alias([
+        'ability' => CheckAbilities::class,
+    ]);
 
     })
     ->withExceptions(function (Exceptions $exceptions): void {

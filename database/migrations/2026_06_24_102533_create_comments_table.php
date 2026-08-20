@@ -15,10 +15,12 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->foreignId('item_id')->constrained('items')->cascadeOnDelete();
-            $table->tinyInteger('rating');
+            $table->unsignedTinyInteger('rating');
             $table->text('comment');
             $table->unique(['user_id', 'item_id']);
             $table->timestamps();
+
+            $table->index('user_id');
         });
     }
 

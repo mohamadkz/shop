@@ -5,6 +5,7 @@ namespace App\Domain\Payment\Models;
 use App\Domain\Customer\Models\User;
 use App\Domain\Order\Models\Order;
 use Database\Factories\PaymentFactory;
+use App\Shared\Traits\HasUuid;
 use App\Domain\Payment\Enums\PaymentStatus;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -13,7 +14,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Payment extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, HasUuid;
 
     protected $fillable = [
         'order_id',
@@ -35,9 +36,18 @@ class Payment extends Model
         'paid_at' => 'datetime',
     ];
 
+    protected $hidden = [
+        'card_pan', 
+    ];
+
     public function scopeSuccess($query)
     {
         return $query->where('status',PaymentStatus::Success);
+    }
+
+    public function scopePending($query)
+    {
+        return $query->where('status', PaymentStatus::Pending);
     }
 
     public function order()

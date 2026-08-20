@@ -35,4 +35,23 @@ return [
         ],
     ],
 
+    // 'zarinpal' => [
+    //     'merchant_id' => env('ZARINPAL_MERCHANT_ID'),
+    //     'sandbox'     => env('ZARINPAL_SANDBOX', true),
+    //     'callback'    => env('ZARINPAL_CALLBACK_URL'),
+    // ],
+    // 'kavenegar' => [
+    //     'api_key' => env('KAVENEGAR_API_KEY'),
+    //     'sender'  => env('KAVENEGAR_SENDER'),
+    // ],
+
+    'payment' => [
+
+        'gateway' => env(
+            'PAYMENT_GATEWAY',
+            'fake'
+        ),
+
+    ],
+
 ];

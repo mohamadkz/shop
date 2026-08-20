@@ -73,6 +73,32 @@ return [
             'after_commit' => false,
         ],
 
+        'rabbitmq' => [
+            'driver' => 'rabbitmq',
+            'queue' => env('RABBITMQ_QUEUE', 'default'),
+            'connection' => PhpAmqpLib\Connection\AMQPStreamConnection::class,
+            'user' => env('RABBITMQ_USER', 'guest'),
+            'password' => env('RABBITMQ_PASSWORD', 'guest'),
+            'vhost' => env('RABBITMQ_VHOST', '/'),
+            'host' => env('RABBITMQ_HOST', '127.0.0.1'),
+            'port' => env('RABBITMQ_PORT', 5672),
+            'sleep' => 3,
+            'after_commit' => false,
+            'worker' => 'default',
+
+            'options' => [
+                'queue' => [
+                    'job' => \VladimirYuldashev\LaravelQueueRabbitMQ\Queue\Jobs\RabbitMQJob::class,
+                ],
+            ],
+
+            // 'worker' => [
+            //     'queue' => 'default',
+            //     'delay' => 0,
+            //     'memory' => 128,
+            // ],
+        ],
+
         'deferred' => [
             'driver' => 'deferred',
         ],

@@ -2,6 +2,11 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Domain\Customer\Actions\LoginUser;
+use App\Domain\Customer\Actions\Logout;
+use App\Domain\Customer\Actions\RegisterUser;
+use App\Shared\Http\ApiResponse;
+
 use App\Http\Controllers\Controller;
 use App\Domain\Customer\Requests\LoginRequest;
 use App\Domain\Customer\Requests\RegisterRequest;
@@ -15,47 +20,36 @@ use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
-    public function register(RegisterRequest $request)
+    public function register(RegisterRequest $request, RegisterUser $action)
     {
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
-        $token = $user->createToken('auth_token')->plainTextToken;
-        return response()->json([
-            'message' => 'کاربر با موفقیت ثبت شد',
-            'token'=>$token,
-            'user'=>new UserResource($user)
-            ], 201);
+        $data = $request->validated();
+
+        $user = $action($data['name'], $data['email'], $data['phone'], $data['password']);
+
+        return ApiResponse::success(new UserResource($user), 'ثبت نام با موفقیت انجام شد', 201);
     }
 
-    public function login(LoginRequest $request)
+    public function login(LoginRequest $request, LoginUser $action)
     {
-        $request->authenticate();
-        $user = User::where('email', $request->email)->first();
-       
-        $token = $user->createToken('auth_token')->plainTextToken;
+        $data = $request->validated();
 
-        return response()->json([
-            'message'=>'ورود با موفقیت',
-            'token'=>$token,
-            'user'=>new UserResource($user),
-        ]);
+        $result = $action($data['email'], $data['password'], $request->userAgent());
+
+        return ApiResponse::success([
+            'user'  => new UserResource($result['user']),
+            'token' => $result['token'],
+        ], 'ورود موفقیت آمیز بود');
     }
 
-    public function logout(Request $request)
+    public function logout(Request $request, Logout $action)
     {
-        
-        $request->user()->currentAccessToken()->delete();
+        $action($request->user());
 
-        return response()->json(['message' => 'با موفقیت از سیستم خارج شدید']);
+        return ApiResponse::success(null, 'خروج با موفقیت انجام شد');
     }
 
     public function user(Request $request)
     {
-        return response()->json([
-            'user'=>new UserResource($request->user())
-        ]);
+        return ApiResponse::success(new UserResource($request->user()));
     }
 }

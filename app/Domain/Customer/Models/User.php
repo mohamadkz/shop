@@ -3,6 +3,7 @@
 namespace App\Domain\Customer\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Shared\Traits\HasUuid;
 use Database\Factories\UserFactory;
 use App\Domain\Order\Models\Order;
 use App\Domain\Payment\Models\Payment;
@@ -23,7 +24,7 @@ use Illuminate\Notifications\Notifiable;
 class User extends Authenticatable
 {
     /** @use HasFactory<UserFactory> */
-    use HasFactory, Notifiable, HasApiTokens;
+    use HasFactory, Notifiable, HasApiTokens, HasUuid;
 
     protected $fillable = [
         'name',
@@ -48,7 +49,9 @@ class User extends Authenticatable
     {
         return [
             'email_verified_at' => 'datetime',
-            'password' => 'hashed',
+            'phone_verified_at' => 'datetime',
+            'last_otp_sent_at'  => 'datetime',
+            'password'          => 'hashed',
         ];
     }
 
@@ -72,7 +75,7 @@ class User extends Authenticatable
         return $this->hasMany(Favorite::class);
     }
 
-    public function otps()
+    public function otps(): HasMany
     {
         return $this->hasMany(Otp::class);
     }

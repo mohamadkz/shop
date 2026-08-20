@@ -15,17 +15,20 @@ class ItemResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->id,
+            'id' => $this->uuid,
             'name' => $this->name,
             'description' => $this->description,
             'category_id' => $this->category_id,
-            'price' => $this->price,
+            'price' => (float) $this->price,
+            'formatted_price' => $this->formatted_price,
             'slug' => $this->slug,
             'stock' => $this->stock,
-            'status' => $this->status,
+            'in_stock' => $this->stock > 0,
+            'status' => $this->status->value,
             'image' => $this->image,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
+            'category' => new CategoryResource($this->whenLoaded('category')),
+            'created_at' => $this->created_at?->toIso8601String(),
+            'updated_at' => $this->updated_at?->toIso8601String(),
         ];
     }
 }

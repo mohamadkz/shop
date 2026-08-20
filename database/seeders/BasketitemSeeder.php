@@ -25,7 +25,7 @@ class BasketitemSeeder extends Seeder
         }
 
         foreach ($baskets as $basket) {
-            $count = rand(2, 5);
+            $count = rand(0, 1);
             $selectedItems = $items->random($count);
 
             $dataToInsert = [];

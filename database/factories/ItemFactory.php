@@ -2,8 +2,9 @@
 
 namespace Database\Factories;
 
-use App\Domain\Catalog\Models\Item;
+use App\Domain\Catalog\Enums\ItemStatus;
 use App\Domain\Catalog\Models\Category;
+use App\Domain\Catalog\Models\Item;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -12,26 +13,37 @@ use Illuminate\Support\Str;
  */
 class ItemFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
-
     protected $model = Item::class;
 
     public function definition(): array
     {
-        $name = $this->faker->words(3, true);
+        $name = fake()->unique()->words(3, true);
 
         return [
-            'name' => $name,
-            'slug' => Str::slug($name . '-' . $this->faker->unique()->numberBetween(1, 99999)),
-            'description' => $this->faker->paragraph(),
-            'price' => $this->faker->numberBetween(100000, 10000000),
-            'stock' => $this->faker->numberBetween(1, 50),
-            'image' => 'default.png',
-            'status' => true
+            // Falls back to creating a Category only if none is supplied —
+            // ItemSeeder always passes an explicit category_id from
+            // already-seeded categories, so this factory-created fallback
+            // only fires when Item::factory() is used standalone (e.g. in tests).
+            'uuid'        => Str::random(10),
+            'category_id' => Category::factory(),
+            'name'        => ucfirst($name),
+            'slug'        => Str::slug($name) . '-' . fake()->unique()->numberBetween(1000, 9999),
+            'description' => fake()->paragraph(),
+            'price'       => fake()->randomFloat(2, 50_000, 5_000_000),
+            'stock'       => fake()->numberBetween(0, 200),
+            'image'       => null,
+            'status'      => ItemStatus::Active,
         ];
+    }
+
+    /** State: out of stock, still visible/purchasable-flagged for UI testing. */
+    public function outOfStock(): static
+    {
+        return $this->state(fn () => ['stock' => 0]);
+    }
+
+    public function draft(): static
+    {
+        return $this->state(fn () => ['status' => ItemStatus::Draft]);
     }
 }

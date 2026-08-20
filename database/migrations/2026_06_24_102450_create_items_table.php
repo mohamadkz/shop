@@ -13,16 +13,19 @@ return new class extends Migration
     {
         Schema::create('items', function (Blueprint $table) {
             $table->id();
+            $table->uuid('uuid')->unique();
             $table->foreignId('category_id')->constrained('categories')->cascadeOnUpdate()->restrictOnDelete();
             $table->string('name');
             $table->string('slug')->unique();
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->decimal('price', 12, 2);
-            $table->integer('stock')->default(0);
+            $table->unsignedInteger('stock')->default(0);
             $table->string('image')->nullable();
-            $table->boolean('status')->default(true);
+            $table->string('status', 20)->default('draft');
             $table->timestamps();
             $table->softDeletes();
+
+            $table->index(['status', 'stock']);
         });
     }
 

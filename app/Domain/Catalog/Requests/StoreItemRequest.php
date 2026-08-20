@@ -12,7 +12,7 @@ class StoreItemRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return $this->user()?->role === 'admin';
+        return $this->user()?->tokenCan('items:write') ?? false;
     }
 
     /**
@@ -25,12 +25,12 @@ class StoreItemRequest extends FormRequest
         return [
             'category_id' => ['required', 'integer', 'min:1', 'exists:categories,id'],
             'name' => ['required', 'string', 'max:255'],
-            'slug' => ['required', 'string', 'max:255', 'unique:items,slug'],
-            'description' => ['nullable', 'string'],
-            'price' => ['required', 'numeric', 'min:0'],
+            'slug' => ['required', 'string', 'max:255', 'alpha_dash', 'unique:items,slug'],
+            'description' => ['nullable', 'string', 'max:5000'],
+            'price' => ['required', 'numeric', 'min:0', 'max:999999999.99'],
             'stock' => ['required', 'integer', 'min:0'],
-            'status' => ['required', 'boolean'],
-            'image' => ['sometimes','image','mimes:jpeg,png,jpg,webp','max:2048'],
+            'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp', 'max:2048'],
+            'status' => ['required', 'string', 'in:draft,active,archived'],
         ];
     }
 }

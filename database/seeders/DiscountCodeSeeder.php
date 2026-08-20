@@ -2,34 +2,47 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Domain\Cart\Models\DiscountCode;
 use Illuminate\Database\Seeder;
-use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
-
+/**
+ * Seeds Cart discount codes. No foreign keys — can run any time relative
+ * to the other seeders — but is ordered before OrderSeeder in
+ * DatabaseSeeder because OrderSeeder randomly applies existing codes to
+ * some seeded orders and needs them to already exist.
+ */
 class DiscountCodeSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
+    private const RANDOM_CODES_TO_CREATE = 10;
+
     public function run(): void
     {
-        $codes = [
-            ['prefix' => 'WELCOME', 'percent' => 10, 'max' => 50000],
-            ['prefix' => 'SUMMER',  'percent' => 20, 'max' => 100000],
-            ['prefix' => 'VIP',      'percent' => 30, 'max' => 200000],
-            ['prefix' => 'FLASH',    'percent' => 50, 'max' => 500000],
-        ];
+        if (DiscountCode::query()->exists()) {
+            $this->command?->info('Discount codes already seeded — skipping.');
 
-        foreach ($codes as $item) {
-            DiscountCode::create([
-                'code' => $item['prefix'] . '-' . strtoupper(fake()->bothify('??##')),
-                'percent' => $item['percent'],
-                'max_discount' => $item['max'],
-                'expired_at' => fake()->boolean(30) ? Carbon::now()->subDays(10) : Carbon::now()->addMonths(1),
-                'usage_limit' => fake()->numberBetween(5, 100),
-            ]);
+            return;
         }
+
+        DB::transaction(function () {
+            // Fixed, memorable codes for manual/demo testing.
+            DiscountCode::factory()->create([
+                'code'         => 'WELCOME10',
+                'type'         => \App\Domain\Cart\Enums\DiscountType::Percentage,
+                'percent'      => 10,
+                'fixed_amount' => null,
+                'max_discount' => 200_000,
+                'expired_at'   => now()->addYear(),
+                'usage_limit'  => null,
+            ]);
+
+            DiscountCode::factory()->expired()->create([
+                'code' => 'EXPIRED20',
+            ]);
+
+            DiscountCode::factory()->count(self::RANDOM_CODES_TO_CREATE)->create();
+        });
+
+        $this->command?->info(sprintf('Seeded %d discount codes.', self::RANDOM_CODES_TO_CREATE + 2));
     }
 }

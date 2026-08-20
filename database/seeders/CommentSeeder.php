@@ -3,42 +3,48 @@
 namespace Database\Seeders;
 
 use App\Domain\Catalog\Models\Comment;
-use App\Domain\Customer\Models\User;
 use App\Domain\Catalog\Models\Item;
-
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Domain\Customer\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
+/**
+ * Seeds Catalog comments. Depends on UserSeeder and ItemSeeder — a comment
+ * needs a real user_id and item_id. Comment doesn't declare an Eloquent
+ * relation to User (Catalog never references Customer's model directly),
+ * so we resolve real ids here in the seeder and pass them as plain
+ * integers, matching how the domain itself only ever stores the id.
+ */
 class CommentSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
+    private const COMMENTS_TO_CREATE = 15;
+
     public function run(): void
     {
-        $userIds = User::pluck('id')->toArray();
+        if (Comment::query()->exists()) {
+            $this->command?->info('Comments already seeded — skipping.');
 
-        if (empty($userIds)) {
             return;
         }
 
-        $items = Item::all();
-        $comments = [];
+        $userIds = User::query()->pluck('id');
+        $itemIds = Item::query()->pluck('id');
 
-        foreach ($items as $item) {
+        if ($userIds->isEmpty() || $itemIds->isEmpty()) {
+            $this->command?->warn('Users or items missing — run UserSeeder and ItemSeeder first. Skipping comments.');
 
-            $randomUserId = $userIds[array_rand($userIds)];
-
-            $comments[] = [
-                'user_id'    => $randomUserId,
-                'item_id'    => $item->id,
-                'rating'     => rand(1, 5),
-                'comment'    => fake()->paragraph(),
-                'created_at' => now(),
-                'updated_at' => now(),
-            ];
+            return;
         }
 
-        Comment::insert($comments);
+        DB::transaction(function () use ($userIds, $itemIds) {
+            for ($i = 0; $i < self::COMMENTS_TO_CREATE; $i++) {
+                Comment::factory()->create([
+                    'user_id' => $userIds->random(),
+                    'item_id' => $itemIds->random(),
+                ]);
+            }
+        });
+
+        $this->command?->info(sprintf('Seeded %d comments.', self::COMMENTS_TO_CREATE));
     }
 }

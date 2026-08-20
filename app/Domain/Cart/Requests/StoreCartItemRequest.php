@@ -5,7 +5,7 @@ namespace App\Domain\Cart\Requests;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreBasketRequest extends FormRequest
+class StoreCartItemRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,7 @@ class StoreBasketRequest extends FormRequest
     {
         return [
             'item_id'  => ['required', 'integer', 'exists:items,id'],
-            'quantity' => ['sometimes', 'integer', 'min:1']
+            'quantity' => ['sometimes', 'integer', 'min:1', 'max:999']
         ];
     }
 }

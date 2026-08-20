@@ -14,17 +14,16 @@ return new class extends Migration
         Schema::create('otps', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
-            $table->string('code', 6);
+            $table->string('code_hash');
             $table->timestamp('expires_at');
             $table->timestamp('used_at')->nullable();
+            $table->unsignedTinyInteger('attempts')->default(0);
+
             $table->ipAddress('ip')->nullable();
             $table->string('user_agent')->nullable();
             $table->timestamps();
 
-            $table->index('code');
-            $table->index('expires_at');
-            $table->index('used_at');
-            
+            $table->index(['user_id', 'used_at']);
         });
     }
 

@@ -6,6 +6,8 @@ use App\Domain\Payment\Models\Payment;
 use App\Domain\Order\Models\Order;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
+
 
 class PaymentSeeder extends Seeder
 {
@@ -32,6 +34,7 @@ class PaymentSeeder extends Seeder
             }
             $payments[] = [
                 'order_id'       => $order->id,
+                'uuid'   => (string) Str::uuid(),
                 'user_id'        => $order->user_id,
                 'amount'         => $order->total_price,
                 'payment_method' => fake()->randomElement(['ZarinPal', 'PayPal', 'Wallet']),

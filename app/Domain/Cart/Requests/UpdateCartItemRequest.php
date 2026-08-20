@@ -5,7 +5,7 @@ namespace App\Domain\Cart\Requests;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateBasketRequest extends FormRequest
+class UpdateCartItemRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,7 +23,7 @@ class UpdateBasketRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'quantity' => ['required', 'integer', 'min:0']
+            'quantity' => ['required', 'integer', 'min:0', 'max:999']
         ];
     }
 }

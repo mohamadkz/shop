@@ -12,45 +12,33 @@ use Illuminate\Support\Str;
  */
 class UserFactory extends Factory
 {
-    /**
-     * The current password being used by the factory.
-     */
     protected $model = User::class;
-    protected static ?string $password;
 
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
+    /** Shared, pre-hashed password so seeded accounts are cheap to log into during local dev. */
+    protected static ?string $sharedHashedPassword;
+
     public function definition(): array
     {
-
         return [
-            'name' => $this->faker->name(),
-            'email' => $this->faker->unique()->safeEmail(),
-            'phone' => $this->faker->numerify('09#########'),
-            'role' => 'user',
-            'email_verified_at' => now(),
-            'password' => static::$password ??= Hash::make('Password123!'),
-            'remember_token' => Str::random(10)
+            'uuid'               => Str::random(10),
+            'name'               => fake()->name(),
+            'email'              => fake()->unique()->safeEmail(),
+            // Iran-style mobile numbers to match the project's OTP/SMS flow.
+            'phone'              => '09' . fake()->unique()->numerify('#########'),
+            'email_verified_at'  => fake()->boolean(80) ? now() : null,
+            'phone_verified_at'  => fake()->boolean(70) ? now() : null,
+            'last_otp_sent_at'   => null,
+            'password'           => static::$sharedHashedPassword ??= Hash::make('password'),
+            'remember_token'     => Str::random(10),
         ];
     }
 
-    /**
-     * Indicate that the model's email address should be unverified.
-     */
-    public function unverified(): static
+    /** State: guaranteed-verified account, useful for auth-flow tests/demos. */
+    public function verified(): static
     {
-        return $this->state(fn(array $attributes) => [
-            'email_verified_at' => null,
-        ]);
-    }
-
-    public function admin(): static
-    {
-        return $this->state(fn (array $attributes) => [
-            'role' => 'admin',
+        return $this->state(fn () => [
+            'email_verified_at' => now(),
+            'phone_verified_at' => now(),
         ]);
     }
 }
