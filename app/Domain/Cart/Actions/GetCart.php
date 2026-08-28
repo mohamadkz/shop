@@ -24,7 +24,6 @@ class GetCart
             ? DiscountCode::query()->valid()->where('code', $discountCode)->first()
             : null;
 
-        // Discount became invalid (expired/exhausted) since it was applied — drop it silently.
         if ($discountCode && ! $discount) {
             $this->cart->removeDiscountCode($userId);
         }

@@ -29,10 +29,16 @@ class PaymentCallbackController extends Controller
         //     ? redirect()->away("{$frontendBase}/orders/{$payment->order_id}?payment=success")
         //     : redirect()->away("{$frontendBase}/orders/{$payment->order_id}?payment=failed");
 
+        $message = match ($statusQuery) {
+            'success' => 'عملیات پرداخت با موفقیت انجام شد.',
+            'failed'  => 'متأسفانه عملیات پرداخت با شکست مواجه شد.',
+            default   => 'وضعیت غیرمنتظره در پردازش کال‌بک.',
+        };
+
         return response()->json([
             'status' => $payment->status->value,
             'redirect_url' => $redirectUrl,
-            'message' => 'Callback processed successfully.'
+            'message' => $message,
         ], 200);
     }
 }

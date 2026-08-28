@@ -12,11 +12,12 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Laravel\Scout\Searchable;
 
 
 class Item extends Model
 {
-    use HasFactory, SoftDeletes, HasUuid;
+    use HasFactory, SoftDeletes, HasUuid, Searchable;
     
     protected $fillable = [
         'category_id',
@@ -74,6 +75,34 @@ class Item extends Model
     public function hasSufficientStock(int $quantity): bool
     {
         return $this->stock >= $quantity;
+    }
+
+    public function searchableAs(): string
+    {
+        return 'catalog_items';
+    }
+
+    /**
+     * The public catalog fields persisted in Elasticsearch.
+     */
+    public function toSearchableArray(): array
+    {
+        return [
+            'name' => $this->name,
+            'description' => $this->description,
+            'category_id' => $this->category_id,
+            'price' => (float) $this->price,
+            'stock' => $this->stock,
+            'status' => $this->status->value,
+        ];
+    }
+
+    /**
+     * Draft and archived items must not appear in the public search index.
+     */
+    public function shouldBeSearchable(): bool
+    {
+        return $this->status === ItemStatus::Active;
     }
 
     protected static function newFactory(): ItemFactory

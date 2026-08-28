@@ -39,7 +39,7 @@ class AddItemToCart
             $newLine = new CartLineData(
                 itemId: $itemId,
                 quantity: ($existing?->quantity ?? 0) + $quantity,
-                unitPrice: $unitPrice, // always re-priced from Catalog's current price at add-time
+                unitPrice: $unitPrice,
             );
 
             if ($newLine->quantity > self::MAX_QUANTITY_PER_LINE) {
