@@ -1,9 +1,7 @@
 <?php
 
-use App\Providers\AppServiceProvider;
-use App\Providers\DomainEventServiceProvider;
-
 return [
-    AppServiceProvider::class,
-    DomainEventServiceProvider::class,
+    App\Providers\AppServiceProvider::class,
+    App\Providers\DomainEventServiceProvider::class,
+    App\Providers\TelescopeServiceProvider::class,
 ];
