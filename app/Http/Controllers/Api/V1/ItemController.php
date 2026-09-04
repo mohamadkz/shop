@@ -16,6 +16,7 @@ use App\Domain\Catalog\Requests\UpdateItemRequest;
 use App\Domain\Catalog\Resources\ItemResource;
 use App\Domain\Catalog\Models\Item;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 
@@ -60,7 +61,13 @@ class ItemController extends Controller
      */
     public function store(StoreItemRequest $request, CreateItem $action)
     {
-        $item = $action(ItemData::fromArray($request->validated()));
+        $data = $request->validated();
+
+        if ($request->hasFile('image')) {
+            $data['image'] = $request->file('image')->store('items', 'public');
+        }
+
+        $item = $action(ItemData::fromArray($data));
         return ApiResponse::success(new ItemResource($item), 'کالا با موفقیت ایجاد شد', 201);
     }
 
@@ -88,7 +95,18 @@ class ItemController extends Controller
             'status'      => $item->status->value,
         ];
 
-        $item = $action($item, ItemData::fromArray(array_merge($current, $request->validated())));
+        $data = $request->validated();
+
+        if ($request->hasFile('image')) {
+            // delete previous image if present
+            if (! empty($item->image)) {
+                Storage::disk('public')->delete($item->image);
+            }
+
+            $data['image'] = $request->file('image')->store('items', 'public');
+        }
+
+        $item = $action($item, ItemData::fromArray(array_merge($current, $data)));
 
         return ApiResponse::success(new ItemResource($item), 'کالا با موفقیت به‌روزرسانی شد');
     }

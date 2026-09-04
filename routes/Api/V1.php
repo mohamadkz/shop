@@ -16,7 +16,7 @@ use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\BasketController;
 
 
-// Public reads — anyone can browse the catalog
+
 Route::get('/items', [ItemController::class, 'index'])->name('index');
 Route::get('/items/{item}', [ItemController::class, 'show'])->name('show');
 Route::get('/items/{item}/comments', [CommentController::class, 'index'])->name('comments.index');
