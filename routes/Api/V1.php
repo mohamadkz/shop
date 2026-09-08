@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\V1\ItemController;
 use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\BasketController;
+use App\Http\Controllers\Api\V1\RoutesController;
 
 
 
@@ -84,3 +85,6 @@ Route::middleware(['auth:sanctum', 'throttle:10,1'])
 Route::get('/payment/callback', PaymentCallbackController::class)
     ->name('payment.callback')
     ->middleware('throttle:30,1');
+
+// Frontend helper: return a JSON list of routes for the front app
+Route::get('/frontend/routes', RoutesController::class)->name('frontend.routes');
