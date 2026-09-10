@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net" modified="2026-09-10" agent="7.0" version="7.0" etag="abc" type="device">
+  <diagram id="datamodel" name="Data Model">
+    <mxGraphModel dx="1400" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <!-- USER -->
+        <mxCell id="user" value="User&#10;----&#10;id (UUID)&#10;email&#10;password&#10;role" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;align=left;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="50" y="50" width="140" height="120" as="geometry"/>
+        </mxCell>
+        <!-- BASKET -->
+        <mxCell id="basket" value="Basket&#10;----&#10;id&#10;user_id (FK)&#10;total_amount&#10;discount_amount&#10;amount&#10;status" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;align=left;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="250" y="50" width="140" height="140" as="geometry"/>
+        </mxCell>
+        <!-- BASKET ITEM -->
+        <mxCell id="basketitem" value="BasketItem&#10;----&#10;id&#10;basket_id (FK)&#10;item_id (FK)&#10;quantity&#10;price" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;align=left;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="450" y="50" width="150" height="130" as="geometry"/>
+        </mxCell>
+        <!-- CATEGORY -->
+        <mxCell id="category" value="Category&#10;----&#10;id (UUID)&#10;name&#10;slug&#10;description" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;align=left;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="650" y="50" width="140" height="110" as="geometry"/>
+        </mxCell>
+        <!-- ITEM -->
+        <mxCell id="item" value="Item (Product)&#10;----&#10;id (UUID)&#10;category_id (FK)&#10;name, slug&#10;price, stock&#10;description, image&#10;status" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;align=left;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="650" y="200" width="140" height="140" as="geometry"/>
+        </mxCell>
+        <!-- COMMENT -->
+        <mxCell id="comment" value="Comment&#10;----&#10;id&#10;item_id (FK)&#10;user_id (FK)&#10;text&#10;rating" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;align=left;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="850" y="50" width="140" height="120" as="geometry"/>
+        </mxCell>
+        <!-- FAVORITE -->
+        <mxCell id="favorite" value="Favorite&#10;----&#10;id&#10;user_id (FK)&#10;item_id (FK)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;align=left;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="850" y="200" width="140" height="100" as="geometry"/>
+        </mxCell>
+        <!-- DISCOUNT CODE -->
+        <mxCell id="discount" value="DiscountCode&#10;----&#10;id&#10;code&#10;percent&#10;max_discount&#10;active" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;align=left;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="250" y="250" width="140" height="120" as="geometry"/>
+        </mxCell>
+        <!-- ORDER -->
+        <mxCell id="order" value="Order&#10;----&#10;id (UUID)&#10;user_id (FK)&#10;basket_id (FK)&#10;order_number&#10;total_price&#10;status" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;align=left;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="50" y="250" width="140" height="130" as="geometry"/>
+        </mxCell>
+        <!-- ORDER ITEM -->
+        <mxCell id="orderitem" value="OrderItem&#10;----&#10;id&#10;order_id (FK)&#10;item_id (FK)&#10;quantity&#10;price" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;align=left;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="450" y="250" width="140" height="130" as="geometry"/>
+        </mxCell>
+        <!-- FOLLOWUP -->
+        <mxCell id="followup" value="Followup&#10;----&#10;id&#10;order_id (FK)&#10;status&#10;notes" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;align=left;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="250" y="420" width="140" height="110" as="geometry"/>
+        </mxCell>
+        <!-- PAYMENT -->
+        <mxCell id="payment" value="Payment&#10;----&#10;id (UUID)&#10;user_id (FK)&#10;order_id (FK)&#10;amount&#10;status" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;align=left;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="450" y="420" width="140" height="120" as="geometry"/>
+        </mxCell>
+        <!-- OTP -->
+        <mxCell id="otp" value="Otp&#10;----&#10;id&#10;user_id (FK)&#10;code&#10;expires_at" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;align=left;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="50" y="420" width="140" height="110" as="geometry"/>
+        </mxCell>
+        <!-- Relationships -->
+        <!-- User -> Basket -->
+        <mxCell id="rel1" value="1:N" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#9673a6;strokeWidth=2;fontSize=10" edge="1" parent="1" source="user" target="basket">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <!-- User -> Order -->
+        <mxCell id="rel2" value="1:N" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#9673a6;strokeWidth=2;fontSize=10" edge="1" parent="1" source="user" target="order">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <!-- User -> OTP -->
+        <mxCell id="rel3" value="1:N" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#9673a6;strokeWidth=2;fontSize=10" edge="1" parent="1" source="user" target="otp">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <!-- User -> Comment -->
+        <mxCell id="rel4" value="1:N" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#9673a6;strokeWidth=2;fontSize=10" edge="1" parent="1" source="user" target="comment">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="190" y="110" as="sourcePoint"/>
+            <mxPoint x="850" y="110" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <!-- User -> Favorite -->
+        <mxCell id="rel5" value="1:N" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#9673a6;strokeWidth=2;fontSize=10" edge="1" parent="1" source="user" target="favorite">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="190" y="200" as="sourcePoint"/>
+            <mxPoint x="850" y="250" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <!-- User -> Payment -->
+        <mxCell id="rel6" value="1:N" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#9673a6;strokeWidth=2;fontSize=10" edge="1" parent="1" source="user" target="payment">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="190" y="400" as="sourcePoint"/>
+            <mxPoint x="450" y="480" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <!-- Basket -> BasketItem -->
+        <mxCell id="rel7" value="1:N" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#9673a6;strokeWidth=2;fontSize=10" edge="1" parent="1" source="basket" target="basketitem">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <!-- Basket -> DiscountCode -->
+        <mxCell id="rel8" value="N:1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#9673a6;strokeWidth=2;fontSize=10" edge="1" parent="1" source="basket" target="discount">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="390" y="200" as="sourcePoint"/>
+            <mxPoint x="320" y="250" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <!-- BasketItem -> Item -->
+        <mxCell id="rel9" value="N:1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#9673a6;strokeWidth=2;fontSize=10" edge="1" parent="1" source="basketitem" target="item">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="600" y="120" as="sourcePoint"/>
+            <mxPoint x="650" y="240" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <!-- Category -> Item -->
+        <mxCell id="rel10" value="1:N" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#9673a6;strokeWidth=2;fontSize=10" edge="1" parent="1" source="category" target="item">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <!-- Item -> Comment -->
+        <mxCell id="rel11" value="1:N" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#9673a6;strokeWidth=2;fontSize=10" edge="1" parent="1" source="item" target="comment">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="790" y="200" as="sourcePoint"/>
+            <mxPoint x="920" y="170" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <!-- Item -> Favorite -->
+        <mxCell id="rel12" value="1:N" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#9673a6;strokeWidth=2;fontSize=10" edge="1" parent="1" source="item" target="favorite">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="790" y="260" as="sourcePoint"/>
+            <mxPoint x="920" y="260" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <!-- Order -> Basket -->
+        <mxCell id="rel13" value="N:1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#9673a6;strokeWidth=2;fontSize=10" edge="1" parent="1" source="order" target="basket">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="190" y="250" as="sourcePoint"/>
+            <mxPoint x="320" y="190" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <!-- Order -> OrderItem -->
+        <mxCell id="rel14" value="1:N" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#9673a6;strokeWidth=2;fontSize=10" edge="1" parent="1" source="order" target="orderitem">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="190" y="315" as="sourcePoint"/>
+            <mxPoint x="450" y="315" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <!-- Order -> Followup -->
+        <mxCell id="rel15" value="1:N" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#9673a6;strokeWidth=2;fontSize=10" edge="1" parent="1" source="order" target="followup">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="190" y="380" as="sourcePoint"/>
+            <mxPoint x="320" y="420" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <!-- Order -> Payment -->
+        <mxCell id="rel16" value="1:1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#9673a6;strokeWidth=2;fontSize=10" edge="1" parent="1" source="order" target="payment">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="190" y="380" as="sourcePoint"/>
+            <mxPoint x="450" y="480" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <!-- OrderItem -> Item -->
+        <mxCell id="rel17" value="N:1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#9673a6;strokeWidth=2;fontSize=10" edge="1" parent="1" source="orderitem" target="item">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="590" y="250" as="sourcePoint"/>
+            <mxPoint x="650" y="340" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <!-- Legend -->
+        <mxCell id="legend1" value="FK = Foreign Key | 1:N = One-to-Many | UUID = Unique Identifier" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=none;fontSize=10;fontStyle=2" vertex="1" parent="1">
+          <mxGeometry x="50" y="600" width="600" height="30" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

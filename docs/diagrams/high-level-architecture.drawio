@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net" modified="2026-09-10" agent="7.0" version="7.0" etag="abc" type="device">
+  <diagram id="high-level-arch" name="High-Level Architecture">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="800" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <!-- External Systems -->
+        <mxCell id="client" value="Client Applications" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="50" y="100" width="150" height="80" as="geometry"/>
+        </mxCell>
+        <!-- Main System -->
+        <mxCell id="shop" value="Shop API&#10;(Laravel 13)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;arcSize=12;shadow=1;fontSize=14;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="350" y="100" width="200" height="80" as="geometry"/>
+        </mxCell>
+        <!-- External Services -->
+        <mxCell id="payment" value="Payment Gateway&#10;(Zarinpal)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="700" y="50" width="150" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="sms" value="SMS Provider&#10;(Kavehnegar)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="700" y="160" width="150" height="80" as="geometry"/>
+        </mxCell>
+        <!-- Data Storage -->
+        <mxCell id="db" value="PostgreSQL Database" style="shape=cylinder3;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="350" y="350" width="150" height="100" as="geometry"/>
+        </mxCell>
+        <mxCell id="elasticsearch" value="Elasticsearch&#10;(Search Engine)" style="shape=cylinder3;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="550" y="350" width="150" height="100" as="geometry"/>
+        </mxCell>
+        <mxCell id="redis" value="Redis Cache" style="shape=cylinder3;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="750" y="350" width="150" height="100" as="geometry"/>
+        </mxCell>
+        <!-- Message Queue -->
+        <mxCell id="queue" value="RabbitMQ&#10;(Message Queue)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="50" y="350" width="150" height="100" as="geometry"/>
+        </mxCell>
+        <!-- Connections -->
+        <!-- Client to Shop -->
+        <mxCell id="edge1" value="REST API&#10;(HTTP/HTTPS)" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#6c8ebf;strokeWidth=2;" edge="1" parent="1" source="client" target="shop">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <!-- Shop to Payment -->
+        <mxCell id="edge2" value="Payment Requests" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#ff6b6b;strokeWidth=2;" edge="1" parent="1" source="shop" target="payment">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <!-- Shop to SMS -->
+        <mxCell id="edge3" value="OTP/SMS" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#ff6b6b;strokeWidth=2;" edge="1" parent="1" source="shop" target="sms">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <!-- Shop to Database -->
+        <mxCell id="edge4" value="SQL Queries&#10;(Eloquent ORM)" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#9673a6;strokeWidth=2;" edge="1" parent="1" source="shop" target="db">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="425" y="210" as="sourcePoint"/>
+          </mxGeometry>
+        </mxCell>
+        <!-- Shop to Elasticsearch -->
+        <mxCell id="edge5" value="Index/Search" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#9673a6;strokeWidth=2;" edge="1" parent="1" source="shop" target="elasticsearch">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="550" y="180" as="sourcePoint"/>
+          </mxGeometry>
+        </mxCell>
+        <!-- Shop to Redis -->
+        <mxCell id="edge6" value="Cache" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#9673a6;strokeWidth=2;" edge="1" parent="1" source="shop" target="redis">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="550" y="180" as="sourcePoint"/>
+          </mxGeometry>
+        </mxCell>
+        <!-- Shop to Queue -->
+        <mxCell id="edge7" value="Async Jobs&#10;(Orders, Emails)" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#82b366;strokeWidth=2;" edge="1" parent="1" source="shop" target="queue">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="350" y="200" as="sourcePoint"/>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

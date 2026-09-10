@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net" modified="2026-09-10" agent="7.0" version="7.0" etag="abc" type="device">
+  <diagram id="pipeline" name="Processing Pipeline">
+    <mxGraphModel dx="1200" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="1000" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <!-- Stage 1: Input -->
+        <mxCell id="input" value="API Request" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;fontSize=12" vertex="1" parent="1">
+          <mxGeometry x="450" y="50" width="120" height="70" as="geometry"/>
+        </mxCell>
+        <!-- Stage 2: Authentication -->
+        <mxCell id="auth" value="Authentication&#10;&amp; Authorization" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;strokeWidth=2;fontSize=12" vertex="1" parent="1">
+          <mxGeometry x="450" y="160" width="120" height="70" as="geometry"/>
+        </mxCell>
+        <!-- Stage 3: Request Validation -->
+        <mxCell id="validation" value="Request Validation&#10;(FormRequest)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;strokeWidth=2;fontSize=12" vertex="1" parent="1">
+          <mxGeometry x="450" y="270" width="120" height="70" as="geometry"/>
+        </mxCell>
+        <!-- Stage 4: Domain Logic -->
+        <mxCell id="domain" value="Domain Logic&#10;(Actions/Services)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;strokeWidth=2;fontSize=12" vertex="1" parent="1">
+          <mxGeometry x="450" y="380" width="120" height="70" as="geometry"/>
+        </mxCell>
+        <!-- Stage 5: Data Processing -->
+        <mxCell id="data" value="Database Operations&#10;(Eloquent ORM)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;strokeWidth=2;fontSize=12" vertex="1" parent="1">
+          <mxGeometry x="450" y="490" width="120" height="70" as="geometry"/>
+        </mxCell>
+        <!-- Stage 6: Event Publishing -->
+        <mxCell id="events" value="Domain Events&#10;&amp; Listeners" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;strokeWidth=2;fontSize=12" vertex="1" parent="1">
+          <mxGeometry x="450" y="600" width="120" height="70" as="geometry"/>
+        </mxCell>
+        <!-- Stage 7: Queue Jobs -->
+        <mxCell id="jobs" value="Async Jobs&#10;(RabbitMQ)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;strokeWidth=2;fontSize=12" vertex="1" parent="1">
+          <mxGeometry x="450" y="710" width="120" height="70" as="geometry"/>
+        </mxCell>
+        <!-- Stage 8: Response -->
+        <mxCell id="response" value="JSON Response&#10;(Resource)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;strokeWidth=2;fontSize=12" vertex="1" parent="1">
+          <mxGeometry x="450" y="820" width="120" height="70" as="geometry"/>
+        </mxCell>
+        <!-- Arrows -->
+        <mxCell id="arrow1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#6c8ebf;strokeWidth=2;" edge="1" parent="1" source="input" target="auth">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="arrow2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#6c8ebf;strokeWidth=2;" edge="1" parent="1" source="auth" target="validation">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="arrow3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#6c8ebf;strokeWidth=2;" edge="1" parent="1" source="validation" target="domain">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="arrow4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#6c8ebf;strokeWidth=2;" edge="1" parent="1" source="domain" target="data">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="arrow5" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#6c8ebf;strokeWidth=2;" edge="1" parent="1" source="data" target="events">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="arrow6" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#6c8ebf;strokeWidth=2;" edge="1" parent="1" source="events" target="jobs">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="arrow7" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#6c8ebf;strokeWidth=2;" edge="1" parent="1" source="jobs" target="response">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <!-- Side annotations -->
+        <mxCell id="label1" value="Sanctum Token" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=none;fontSize=10;fontStyle=2" vertex="1" parent="1">
+          <mxGeometry x="200" y="180" width="100" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="label2" value="StoreItemRequest" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=none;fontSize=10;fontStyle=2" vertex="1" parent="1">
+          <mxGeometry x="200" y="290" width="100" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="label3" value="Domain Actions" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=none;fontSize=10;fontStyle=2" vertex="1" parent="1">
+          <mxGeometry x="200" y="400" width="100" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="label4" value="Event Broadcasting" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=none;fontSize=10;fontStyle=2" vertex="1" parent="1">
+          <mxGeometry x="200" y="620" width="100" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="label5" value="Queued Workers" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=none;fontSize=10;fontStyle=2" vertex="1" parent="1">
+          <mxGeometry x="200" y="730" width="100" height="30" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

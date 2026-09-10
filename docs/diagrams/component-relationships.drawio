@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net" modified="2026-09-10" agent="7.0" version="7.0" etag="abc" type="device">
+  <diagram id="components" name="Component Relationships">
+    <mxGraphModel dx="1400" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="1000" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <!-- CATALOG DOMAIN -->
+        <mxCell id="cat_group" value="CATALOG DOMAIN" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#82b366;strokeWidth=2;fontSize=12;fontStyle=1;dashed=1" vertex="1" parent="1">
+          <mxGeometry x="50" y="50" width="300" height="250" as="geometry"/>
+        </mxCell>
+        <mxCell id="cat_model" value="Item Model&#10;+ name, price, stock" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=1.5" vertex="1" parent="1">
+          <mxGeometry x="60" y="80" width="120" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="cat_repo" value="ItemRepository" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;strokeWidth=1.5" vertex="1" parent="1">
+          <mxGeometry x="200" y="80" width="130" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="cat_service" value="CatalogService" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;strokeWidth=1.5" vertex="1" parent="1">
+          <mxGeometry x="60" y="180" width="130" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="cat_resource" value="ItemResource&#10;(API Response)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;strokeWidth=1.5" vertex="1" parent="1">
+          <mxGeometry x="200" y="180" width="130" height="60" as="geometry"/>
+        </mxCell>
+        <!-- CART DOMAIN -->
+        <mxCell id="cart_group" value="CART DOMAIN" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#82b366;strokeWidth=2;fontSize=12;fontStyle=1;dashed=1" vertex="1" parent="1">
+          <mxGeometry x="380" y="50" width="300" height="250" as="geometry"/>
+        </mxCell>
+        <mxCell id="basket_model" value="Basket Model&#10;+ total_amount, discount" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=1.5" vertex="1" parent="1">
+          <mxGeometry x="390" y="80" width="130" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="basket_item" value="BasketItem Model" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=1.5" vertex="1" parent="1">
+          <mxGeometry x="530" y="80" width="130" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="basket_service" value="BasketService" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;strokeWidth=1.5" vertex="1" parent="1">
+          <mxGeometry x="390" y="180" width="130" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="discount_code" value="DiscountCode Model" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=1.5" vertex="1" parent="1">
+          <mxGeometry x="530" y="180" width="130" height="60" as="geometry"/>
+        </mxCell>
+        <!-- ORDER DOMAIN -->
+        <mxCell id="order_group" value="ORDER DOMAIN" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#82b366;strokeWidth=2;fontSize=12;fontStyle=1;dashed=1" vertex="1" parent="1">
+          <mxGeometry x="710" y="50" width="300" height="250" as="geometry"/>
+        </mxCell>
+        <mxCell id="order_model" value="Order Model&#10;+ status, total_price" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=1.5" vertex="1" parent="1">
+          <mxGeometry x="720" y="80" width="130" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="order_item" value="OrderItem Model" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=1.5" vertex="1" parent="1">
+          <mxGeometry x="860" y="80" width="130" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="order_service" value="OrderService" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;strokeWidth=1.5" vertex="1" parent="1">
+          <mxGeometry x="720" y="180" width="130" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="followup" value="Followup Model" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=1.5" vertex="1" parent="1">
+          <mxGeometry x="860" y="180" width="130" height="60" as="geometry"/>
+        </mxCell>
+        <!-- PAYMENT DOMAIN -->
+        <mxCell id="payment_group" value="PAYMENT DOMAIN" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#82b366;strokeWidth=2;fontSize=12;fontStyle=1;dashed=1" vertex="1" parent="1">
+          <mxGeometry x="1040" y="50" width="320" height="250" as="geometry"/>
+        </mxCell>
+        <mxCell id="payment_model" value="Payment Model" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=1.5" vertex="1" parent="1">
+          <mxGeometry x="1050" y="80" width="130" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="payment_contract" value="PaymentGatewayContract" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c8b1ff;strokeColor=#9673a6;strokeWidth=1.5;fontStyle=2" vertex="1" parent="1">
+          <mxGeometry x="1190" y="80" width="150" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="payment_service" value="PaymentService" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;strokeWidth=1.5" vertex="1" parent="1">
+          <mxGeometry x="1050" y="180" width="130" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="payment_gateways" value="Zarinpal&#10;FakePayment" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;strokeWidth=1.5" vertex="1" parent="1">
+          <mxGeometry x="1190" y="180" width="150" height="60" as="geometry"/>
+        </mxCell>
+        <!-- CUSTOMER DOMAIN -->
+        <mxCell id="cust_group" value="CUSTOMER DOMAIN" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#82b366;strokeWidth=2;fontSize=12;fontStyle=1;dashed=1" vertex="1" parent="1">
+          <mxGeometry x="50" y="330" width="300" height="180" as="geometry"/>
+        </mxCell>
+        <mxCell id="user_model" value="User Model" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=1.5" vertex="1" parent="1">
+          <mxGeometry x="60" y="360" width="130" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="otp_model" value="Otp Model" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=1.5" vertex="1" parent="1">
+          <mxGeometry x="200" y="360" width="130" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="sms_contract" value="SmsProviderContract" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c8b1ff;strokeColor=#9673a6;strokeWidth=1.5;fontStyle=2" vertex="1" parent="1">
+          <mxGeometry x="60" y="440" width="130" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="sms_service" value="OtpService" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;strokeWidth=1.5" vertex="1" parent="1">
+          <mxGeometry x="200" y="440" width="130" height="60" as="geometry"/>
+        </mxCell>
+        <!-- SHARED DOMAIN -->
+        <mxCell id="shared_group" value="SHARED LAYER" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#666666;strokeWidth=2;fontSize=12;fontStyle=1;dashed=1" vertex="1" parent="1">
+          <mxGeometry x="380" y="330" width="600" height="180" as="geometry"/>
+        </mxCell>
+        <mxCell id="actions" value="Domain Actions" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;strokeWidth=1.5" vertex="1" parent="1">
+          <mxGeometry x="390" y="360" width="120" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="dtos" value="DTOs" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;strokeWidth=1.5" vertex="1" parent="1">
+          <mxGeometry x="520" y="360" width="120" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="events" value="Domain Events" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;strokeWidth=1.5" vertex="1" parent="1">
+          <mxGeometry x="650" y="360" width="120" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="jobs" value="Jobs" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;strokeWidth=1.5" vertex="1" parent="1">
+          <mxGeometry x="780" y="360" width="120" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="jobs2" value="Exceptions" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;strokeWidth=1.5" vertex="1" parent="1">
+          <mxGeometry x="390" y="440" width="120" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="traits" value="Traits" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;strokeWidth=1.5" vertex="1" parent="1">
+          <mxGeometry x="520" y="440" width="120" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="services" value="Services" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;strokeWidth=1.5" vertex="1" parent="1">
+          <mxGeometry x="650" y="440" width="120" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="http" value="Http Utilities" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;strokeWidth=1.5" vertex="1" parent="1">
+          <mxGeometry x="780" y="440" width="120" height="60" as="geometry"/>
+        </mxCell>
+        <!-- Dependencies -->
+        <mxCell id="edge1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#999999;strokeWidth=1;dashed=1" edge="1" parent="1" source="cat_model" target="cat_repo">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="edge2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#999999;strokeWidth=1;dashed=1" edge="1" parent="1" source="cat_repo" target="cat_service">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="edge3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#999999;strokeWidth=1;dashed=1" edge="1" parent="1" source="cat_service" target="cat_resource">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="edge4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#999999;strokeWidth=1;dashed=1" edge="1" parent="1" source="basket_model" target="basket_service">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="edge5" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#999999;strokeWidth=1;dashed=1" edge="1" parent="1" source="payment_model" target="payment_service">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="edge6" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#999999;strokeWidth=1;dashed=1" edge="1" parent="1" source="payment_contract" target="payment_gateways">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
